@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= person %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= person %></h1>
+    <p>Вы должны приготовить подарок для <%= person %></p>
+    <% if (changed) { %>
+      <h2>Вы успешно поменяли человека</h2>
+    <% } else { %>
+      <p><b>Вы можете поменять человека если это вы, но только один раз</b></p>
+      <a href="/regenerate">Поменять</a>
+    <% } %>
+  </body>
+</html>
