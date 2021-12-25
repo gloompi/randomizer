@@ -5,6 +5,7 @@ const router = express.Router();
 const MEMBERS_QUEUE = 'MEMBERS';
 const VISITED_LIST = 'VISITED';
 const CHANGE_REQUESTED = 'CHANGE';
+const VOTED_LIST = 'VOTE';
 
 const init = async () => {
   const {
@@ -111,6 +112,43 @@ const init = async () => {
       res.status('400');
       res.send('Please provide name');
     }
+  });
+
+  router.get('/vote', async (req, res) => {
+    const voteList = [
+      'Эркин',
+      'Айжаркын',
+      'Салтанат',
+      'Айжамал',
+      'Канат',
+      'Элтуран',
+      'Жылдыз',
+      'Эмир',
+      'Куба',
+      'Тина',
+    ];
+
+    res.render('votedList', { voteList });
+  });
+
+  router.get('/voted-list', async (req, res) => {
+    const list = await client?.get(VOTED_LIST);
+    const parsedList = list ? JSON.parse(list) : [];
+
+    res.send({ votedList: parsedList });
+  });
+
+  router.get('/vote/:name', async (req, res) => {
+    const { name } = req.params;
+
+    const list = await client?.get(VOTED_LIST);
+    const parsedList = JSON.parse(list) || [];
+
+    parsedList.push(name);
+
+    await client.set(VOTED_LIST, JSON.stringify(parsedList));
+
+    res.send(`Вы проголосовали за ${name}`);
   });
 }
 
