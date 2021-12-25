@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+ul {
+  font-size: 25px;
+}
+
+li {
+  margin-bottom: 15px;
+}
